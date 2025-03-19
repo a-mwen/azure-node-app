@@ -33,7 +33,9 @@ jobs:
 
       - name: Set up Azure CLI
         uses: azure/cli-action@v2  # Set up Azure CLI for the deployment process
-        
+        with:
+          azcliversion: '2.0.0'  # Specify the Azure CLI version
+
       - name: Azure WebApp Deploy
         uses: azure/webapps-deploy@v2  # Use the Azure Web Apps deploy action
         with:
