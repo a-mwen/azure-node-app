@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2  # Check out your repository code
+        uses: actions/checkout@v4  # Latest version
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'  # Set the Node.js version you are using
+          node-version: '18'  # Updated Node.js version
 
       - name: Install dependencies
         run: |
@@ -29,17 +29,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2  # Check out your repository code
+        uses: actions/checkout@v4  # Latest version
 
-      - name: Set up Azure CLI
-        uses: azure/cli-action@v2  # Set up Azure CLI for the deployment process
+      - name: Azure Login
+        uses: azure/login@v1
         with:
-          azcliversion: '2.0.0'  # Specify the Azure CLI version
+          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Make sure this is set in GitHub Secrets
 
       - name: Azure WebApp Deploy
-        uses: azure/webapps-deploy@v2  # Use the Azure Web Apps deploy action
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'cloud-devops-app'  # Replace with your Azure Web App name
-          slot-name: 'production'  # Replace if you want to use a different slot
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Secret containing the publish profile
+          slot-name: 'production'  # Use 'production' or another deployment slot
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Azure WebApp publish profile
           package: ./backend  # Path to your backend folder
