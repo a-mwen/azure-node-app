@@ -23,12 +23,6 @@ jobs:
           cd backend  # Navigate to the 'backend' directory
           npm install  # Install the dependencies from package.json in the backend
 
-      # Optional: If you need a build step, you can include a valid build script here.
-      - name: Build project
-        run: |
-          cd backend  # Ensure you're in the backend directory
-          npm run build  # Build your project (if you have a build step, add it to package.json)
-
   deploy:
     runs-on: ubuntu-latest
     needs: build  # Ensure the build job runs before deployment
