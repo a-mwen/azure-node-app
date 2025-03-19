@@ -19,10 +19,14 @@ jobs:
           node-version: '16'  # Set the Node.js version you are using
 
       - name: Install dependencies
-        run: npm install  # Install the dependencies from package.json
+        run: |
+          cd backend  # Navigate to the 'backend' directory
+          npm install  # Install the dependencies from package.json in the backend
 
       - name: Build project
-        run: npm run build  # Build your project (if you need to run a build step)
+        run: |
+          cd backend  # Ensure you're in the backend directory
+          npm run build  # Build your project (if you need to run a build step)
 
   deploy:
     runs-on: ubuntu-latest
@@ -41,4 +45,4 @@ jobs:
           app-name: 'cloud-devops-app'  # Replace with your Azure Web App name
           slot-name: 'production'  # Replace if you want to use a different slot
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Secret containing the publish profile
-          package: .  # Path to your app package, usually '.' for the root directory
+          package: ./backend  # Path to your app package, specify the backend folder
